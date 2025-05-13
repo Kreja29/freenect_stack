@@ -22,6 +22,10 @@ find_library(LIBFREENECT_LIBRARY
   PATHS ${LIBFREENECT_LIBRARY_DIRS}
 )
 
+# Define libfreenect variables properly for catkin_package
+set(libfreenect_INCLUDE_DIRS ${LIBFREENECT_INCLUDE_DIRS})
+set(libfreenect_LIBRARIES ${LIBFREENECT_LIBRARY})
+
 # auto-generate dynamic reconfiguration GUI before catkin_package()
 generate_dynamic_reconfigure_options(cfg/Freenect.cfg)
 
@@ -60,7 +64,9 @@ catkin_package(DEPENDS
                image_transport
                nodelet
                roscpp
-               sensor_msgs)
+               sensor_msgs
+               INCLUDE_DIRS include
+               LIBRARIES freenect_nodelet)
 
 # install the node and nodelet
 install(TARGETS freenect_node
